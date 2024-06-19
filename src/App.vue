@@ -2,11 +2,12 @@
   import { PDFDocument, rgb } from 'pdf-lib'
   import fontkit from '@pdf-lib/fontkit'
   import { ref, onMounted, reactive, computed } from 'vue'
-  import { EditPen, Edit, CircleCloseFilled, RefreshLeft, MessageBox, Finished } from '@element-plus/icons-vue'
+  import { CircleCloseFilled } from '@element-plus/icons-vue'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import $ from 'jquery'
   import YouSheBiaoTiHei from '@/assets/fonts/YouSheBiaoTiHei.ttf'
-
+  import { EditPen, Text, Square, Withdraw, SaveAll, SaveEdit } from '@/assets/svg/icon'
+  
   let count = ref(0)
   let pdfDoc = reactive({})
   let total =  ref(0)
@@ -34,11 +35,11 @@
   // 操作选项
   const editingOptions = [
     { icon: EditPen, method: 'drawing', behavior: 'drawingBoard', tooltip: '画线' },
-    { icon: Edit, method: 'text', behavior: 'drawingBoard', tooltip: '文字' },
-    { icon: Edit, method: 'square', behavior: 'drawingBoard', tooltip: '边框' },
-    { icon: RefreshLeft, method: 'undo', behavior: 'system', tooltip: '撤回'},
-    { icon: MessageBox, method: 'saveAll', behavior: 'system', tooltip: '保存全部'},
-    { icon: Finished, method: 'saveEdit', behavior: 'system', tooltip: '保存有编辑痕迹的文件'},
+    { icon: Text, method: 'text', behavior: 'drawingBoard', tooltip: '文字' },
+    { icon: Square, method: 'square', behavior: 'drawingBoard', tooltip: '边框' },
+    { icon: Withdraw, method: 'undo', behavior: 'system', tooltip: '撤回'},
+    { icon: SaveAll, method: 'saveAll', behavior: 'system', tooltip: '保存全部'},
+    { icon: SaveEdit, method: 'saveEdit', behavior: 'system', tooltip: '保存有编辑痕迹的文件'},
   ]
   //打字板
   let inputContent = reactive({})
@@ -410,13 +411,16 @@
               v-for="item in editingOptions" 
               :key="item.method" 
             >
-            <el-icon
+            <!-- <el-icon
                 :size="30"
                 :color="editingMethod === item.method?'#077CF4':'#fff'"
                 class="editor-icon"
                 @click="changeEditingMethod(item)">
                   <component :is="item.icon" />
-                </el-icon>
+                </el-icon> -->
+                <div :class="editingMethod === item.method ? 'active' : '' " 
+                @click="changeEditingMethod(item)"
+                class="svg-icon" v-html="item.icon"></div>
             </el-tooltip>
           </div>
         </div>
@@ -478,9 +482,7 @@
 .choosed-box {
   display: flex;
 }
-.editor-icon {
-  cursor: pointer;
-}
+
   .view-box {
     position: relative;
     width: 100%;
@@ -571,15 +573,26 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
   }
+  .choose-line .svg-icon ::v-deep svg {
+    width: 20px!important;
+    height: 20px!important;
+    fill: #FFF;
+    cursor: pointer;
+    margin: 0 4px;
+  }
+  .choose-line .active ::v-deep svg {
+    fill: #0339da;
+   }
   .el-icon {
     margin: 0px 6px;
   }
-  .choose-color,
-  .writing-box {
+  .choose-color {
     height: 40px;
     display: flex;
     flex-direction: row;
+    margin-right: 8px;
   }
    
   .button {
