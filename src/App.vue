@@ -5,13 +5,13 @@
   import { CircleCloseFilled } from '@element-plus/icons-vue'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import $ from 'jquery'
-  import YouSheBiaoTiHei from '@/assets/fonts/YouSheBiaoTiHei.ttf'
+  import FontStyle from '@/assets/fonts/SourceHanSansCN-Normal.ttf'
   import { EditPen, Text, Square, Withdraw, SaveAll, SaveEdit } from '@/assets/svg/icon'
   
   let count = ref(0)
   let pdfDoc = reactive({})
   let total =  ref(0)
-  let pdfUrl = ref('http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf')
+  let pdfUrl = ref('https://cache.industry.siemens.com/dl/files/453/109747453/att_919415/v1/ComfortPanel_PDF_Reading.pdf')
   let currentPage = ref(1)
   let operationalBehaviorAll = reactive({})
   let freehandLines = computed(() => {
@@ -309,7 +309,7 @@
   async function generateLine() {
     let generatePdfDoc = await pdfDoc.copy()
     const pages = generatePdfDoc.getPages()
-    const fontBytes = await fetch(YouSheBiaoTiHei).then((res) => res.arrayBuffer())// 添加字体包
+    const fontBytes = await fetch(FontStyle).then((res) => res.arrayBuffer())// 添加字体包
     generatePdfDoc.registerFontkit(fontkit)
     const ubuntuFont = await generatePdfDoc.embedFont(fontBytes, { subset: true })// 不加subset:true,pdf会变得很大
     for (let k = 0; k < pages.length; k++) {
@@ -380,7 +380,7 @@
     const pdfBytes = await PdfDoc.save()
     const blob = new Blob([pdfBytes], { type: 'application/pdf' })
     const downLoadLink = document.createElement('a');
-    downLoadLink.download = `NewPDF${new Date().getTime()}`;
+    downLoadLink.download = `PDF${new Date().getTime()}`;
     downLoadLink.href = URL.createObjectURL(blob);
     downLoadLink.click();
   }
@@ -411,13 +411,6 @@
               v-for="item in editingOptions" 
               :key="item.method" 
             >
-            <!-- <el-icon
-                :size="30"
-                :color="editingMethod === item.method?'#077CF4':'#fff'"
-                class="editor-icon"
-                @click="changeEditingMethod(item)">
-                  <component :is="item.icon" />
-                </el-icon> -->
                 <div :class="editingMethod === item.method ? 'active' : '' " 
                 @click="changeEditingMethod(item)"
                 class="svg-icon" v-html="item.icon"></div>
@@ -464,13 +457,46 @@
             <el-button type="success" size="small" @click="submitEdit">确定</el-button>
           </div>
         </div>
-      </div> 
+      </div>
+      <!--  -->
+      <el-tooltip
+              class="box-item"
+              effect="dark"
+              content="itzhenzichao@163.com"
+              placement="bottom-start"
+            >
+      <div class="about bouncy">
+            <img src="@/assets/panda.png" width="100%" alt="">
+      </div>
+    </el-tooltip>
     </div>
 </template>
 
 <style scoped>
 .pdf-editor {
   width: 100%;
+}
+.about {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  top: 30%;
+  right: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+ 
+.bouncy {
+  animation: bounce 2s infinite;
 }
 .operation-area {
   display: flex;
@@ -575,14 +601,14 @@
     flex-wrap: wrap;
     align-items: center;
   }
-  .choose-line .svg-icon ::v-deep svg {
+  .choose-line .svg-icon :deep(svg)  {
     width: 20px!important;
     height: 20px!important;
     fill: #FFF;
     cursor: pointer;
     margin: 0 4px;
   }
-  .choose-line .active ::v-deep svg {
+  .choose-line .active :deep(svg) {
     fill: #0339da;
    }
   .el-icon {
