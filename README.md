@@ -2,6 +2,19 @@
 
 对PDF文件进行标注,下载。
 
+# Demo
+
+https://itzhenzichao.github.io/pdf-editor.io/
+
+# Features
+
+* Create new PDFs
+* Draw Text
+* Draw SVG Paths
+* Draw Vector Graphics
+* Undo
+* Embed Fonts (supports UTF-8 and UTF-16 character sets)
+
 ## Usage Examples
 ```
 yarn install
@@ -13,9 +26,11 @@ yarn dev
 * [![][Vite.js]][Vite-url]
 * [![][Node.js]][Node-url]
 * [![][Pdf-lib.js]][Pdf-lib-url]
+* [![][ElementPlus.js]][ElementPlus-url]
 
-
-[Vue.js]: https://img.shields.io/badge/vue3-%235b5b5b?style=social&logo=vuedotjs&logoColor=brightgreen
+[ElementPlus.js]: https://img.shields.io/badge/element_plus-%20?style=social&logo=element
+[ElementPlus-url]: https://element-plus.org/zh-CN/
+[Vue.js]: https://img.shields.io/badge/vue3-%235b5b5b?style=social&logo=vuedotjs&logoColor=%2365b687
 [Vue-url]: https://vuejs.org/
 [Vite.js]: https://img.shields.io/badge/vite-%20?style=social&logo=vite&logoColor=%239762f6
 [Vite-url]: https://cn.vitejs.dev/
