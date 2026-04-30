@@ -1,42 +1,30 @@
-name: Vite Vue2 Build
+name: Vite Vue2 打包构建
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js 20
+      - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: npm
 
-      - name: Install dependencies
+      - name: 安装依赖
         run: npm install
 
-      - name: Build with Vite
+      - name: 打包项目
         run: npm run build
 
-      - name: Upload dist artifact
+      - name: 上传 dist 打包产物
         uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: dist/**
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
