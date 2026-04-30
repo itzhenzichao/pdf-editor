@@ -4,7 +4,7 @@
 
 # Demo
 
-https://itzhenzichao.github.io/pdf-editor.io/
+[https://itzhenzichao.github.io/pdf-editor/](https://itzhenzichao.github.io/pdf-editor/)
 
 # Features
 
